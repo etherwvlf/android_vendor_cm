@@ -1,15 +1,15 @@
 function __print_cm_functions_help() {
 cat <<EOF
-Additional LineageOS functions:
+Additional Hellfire functions:
 - cout:            Changes directory to out.
 - mmp:             Builds all of the modules in the current directory and pushes them to the device.
 - mmap:            Builds all of the modules in the current directory and its dependencies, then pushes the package to the device.
 - mmmp:            Builds all of the modules in the supplied directories and pushes them to the device.
 - mms:             Short circuit builder. Quickly re-build the kernel, rootfs, boot and system images
                    without deep dependencies. Requires the full build to have run before.
-- cmgerrit:        A Git wrapper that fetches/pushes patch from/to LineageOS Gerrit Review.
+- cmgerrit:        A Git wrapper that fetches/pushes patch from/to Hellfire Gerrit Review.
 - cmrebase:        Rebase a Gerrit change and push it again.
-- cmremote:        Add git remote for LineageOS Gerrit Review.
+- cmremote:        Add git remote for Hellfire Gerrit Review.
 - aospremote:      Add git remote for matching AOSP repository.
 - cafremote:       Add git remote for matching CodeAurora repository.
 - mka:             Builds using SCHED_BATCH on all processors.
@@ -59,16 +59,16 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the Lineage model name
+            # This is probably just the Hellfire model name
             if [ -z "$variant" ]; then
                 variant="userdebug"
             fi
 
-            if ! check_product lineage_$target && check_product cm_$target; then
+            if ! check_product hellfire_$target && check_product cm_$target; then
                 echo "** Warning: '$target' is using CM-based makefiles. This will be deprecated in the next major release."
                 lunch cm_$target-$variant
             else
-                lunch lineage_$target-$variant
+                lunch hellfire_$target-$variant
             fi
         fi
     fi
@@ -80,7 +80,7 @@ alias bib=breakfast
 function eat()
 {
     if [ "$OUT" ] ; then
-        ZIPPATH=`ls -tr "$OUT"/lineage-*.zip | tail -1`
+        ZIPPATH=`ls -tr "$OUT"/hellfire-*.zip | tail -1`
         if [ ! -f $ZIPPATH ] ; then
             echo "Nothing to eat"
             return 1
@@ -246,7 +246,7 @@ function cmremote()
     if [ -z "$GERRIT_REMOTE" ]
     then
         local GERRIT_REMOTE=$(git config --get remote.aosp.projectname | sed s#platform/#android/#g | sed s#/#_#g)
-        local PFX="LineageOS/"
+        local PFX="Hellfire/"
     fi
     local CMUSER=$(git config --get review.review.lineageos.org.username)
     if [ -z "$CMUSER" ]

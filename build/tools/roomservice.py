@@ -151,9 +151,9 @@ def is_in_manifest(projectpath):
         if localpath.get("path") == projectpath:
             return True
 
-    # ... and don't forget the lineage snippet
+    # ... and don't forget the hellfire snippet
     try:
-        lm = ElementTree.parse(".repo/manifests/snippets/cm.xml")
+        lm = ElementTree.parse(".repo/manifests/snippets/hellfire.xml")
         lm = lm.getroot()
     except:
         lm = ElementTree.Element("manifest")
